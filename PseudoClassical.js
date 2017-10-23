@@ -14,16 +14,15 @@ Mammal.prototype.says = function () {
   return this.saying || '';
 }
 
-var myMammal = new Mammal('herb the Mammal');
-console.log(myMammal.getName());
-
 var Cat = function (name) {
-  this.name = name;
+  //this.name = name;
+  this._super.call(this, name); //set name with super
   this.saying = 'meow';
 }
 
 Cat.prototype = new Mammal();
 Cat.prototype.constructor = Cat;
+Cat.prototype._super = Mammal;
 Cat.prototype.purr = function (n) {
   var i, s = '';
   for (i = 0; i < n; i += 1) {
@@ -37,7 +36,6 @@ Cat.prototype.purr = function (n) {
 
 var myCat = new Cat('Henrietta');
 console.log(myCat.says(), myCat.purr(5), myCat.getName());
-console.log(myCat);
 
 //Cascade Style
 var Cat2 = function (name) {
